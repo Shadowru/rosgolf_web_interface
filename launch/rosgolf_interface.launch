@@ -4,7 +4,24 @@
     <arg name="linear_scale" default="1"/>
     <arg name="angular_scale" default="1"/>
 
+    <include file="$(find rosgolf_web_interface)/launch/rplidar.launch"/>
+
     <node pkg="rosgolf_web_interface" type="node_server.sh" name="node_server" output="screen"
           args=" --lin $(arg linear_scale) --ang $(arg angular_scale)"/>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" >
+        <arg name="port" value="9090"/>
+    </include>
+
+    <node pkg="exploration_server" type="plugin_client" name="plugin_client" output="screen">
+    </node>
+
+    <node pkg="exploration_server" type="exploration_server_node" name="exploration_server_node" output="screen">
+        <param name="frequency" type="double" value="1.0"/>
+        <param name="goal_aliasing" type="double" value="0.2"/>
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosgolf_web_interface)/params/exploration.yaml" command="load" />
+    </node>
+
+
 
 </launch>
