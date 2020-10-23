@@ -4,6 +4,8 @@
     <arg name="linear_scale" default="1"/>
     <arg name="angular_scale" default="1"/>
 
+    <include file="$(find rosgolf_web_interface)/launch/urdf.launch"/>
+
     <include file="$(find rosgolf_web_interface)/launch/rplidar.launch"/>
 
     <node pkg="gmapping" type="slam_gmapping" name="gmapping_node" output="log">

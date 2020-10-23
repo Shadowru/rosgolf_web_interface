@@ -1,0 +1,16 @@
+<launch>
+
+    <arg name="model" default="$(find rosgolf_web_interface)/urdf/rosgolf.urdf"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="rate" value="50"/>
+    </node>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="50"/>
+        <param name="use_tf_static" value="true" type="bool"/>
+    </node>
+
+    <!--    <node pkg="tf" type="static_transform_publisher" name="base_link_footprint" args="0 0 -0.075 0.0 0.0 0.0 /base_footprint /base_link 100" />-->
+</launch>
