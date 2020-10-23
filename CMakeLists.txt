@@ -119,12 +119,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(map_to_img_node src/map_to_img.cpp src/MapAsImageProvider.cpp)
-
-target_link_libraries(map_to_img_node
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-)
+add_executable(robot_pose_publisher src/robot_pose_publisher.cpp)
+add_dependencies(robot_pose_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(robot_pose_publisher ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
