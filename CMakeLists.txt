@@ -115,8 +115,15 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(map_to_img_node src/map_to_img.cpp src/MapAsImageProvider.cpp)
+
+target_link_libraries(map_to_img_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 ## Declare a C++ library
