@@ -1,1 +1,1 @@
-roslaunch rosgolf_web_interface rosgolf_interface
+roslaunch rosgolf_web_interface rosgolf_interface.launch
