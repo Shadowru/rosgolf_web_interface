@@ -1,6 +1,6 @@
 <launch>
 
-    <arg name="model" default="$(find rosgolf_web_interface)/urdf/rosgolf.urdf"/>
+    <arg name="model" default="$(find rosgolf_web_interface)/urdf/rosgolf_robot.urdf"/>
 
     <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
 
