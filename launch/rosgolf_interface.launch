@@ -48,9 +48,9 @@
     <!--        <param name="publish_map_tile" value="true"/>-->
     <!--    </node>-->
 
-<!--    <node pkg="rosgolf_web_interface" type="robot_pose_publisher" name="rosgolf_pose_publisher">-->
-<!--        <param name="is_stamped" value="true"/>-->
-<!--    </node>-->
+    <node pkg="rosgolf_web_interface" type="robot_pose_publisher" name="rosgolf_pose_publisher">
+        <param name="is_stamped" value="true"/>
+    </node>
 
     <node pkg="rosgolf_web_interface" type="node_server.sh" name="node_server" output="screen"
           args=" --lin $(arg linear_scale) --ang $(arg angular_scale)"/>
