@@ -1,1 +1,3 @@
 roslaunch rosgolf_web_interface rosgolf_interface.launch
+
+rosservice call /stop_motor
