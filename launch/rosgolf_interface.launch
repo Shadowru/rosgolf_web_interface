@@ -6,33 +6,47 @@
 
     <include file="$(find rosgolf_web_interface)/launch/urdf.launch"/>
 
+    <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">
+        <rosparam command="load" file="$(find rosgolf_web_interface)/params/ekf_params.yaml"/>
+        <!--  Placeholder for output topic remapping -->
+        <remap from="odometry/filtered" to="odom"/>
+        <!-- <remap from="accel/filtered" to=""/> -->
+    </node>
+
+    <include file="$(find ros_odrive)/launch/move_base.launch"/>
+
+    <node name="hoverboard_driver" pkg="hoverboard_driver" type="node" output="screen">
+        <param name="uart" value="/dev/ttyTHS1"/>
+        <param name="baudrate" value="115200"/>
+    </node>
+
     <include file="$(find rosgolf_web_interface)/launch/rplidar.launch"/>
 
     <node pkg="gmapping" type="slam_gmapping" name="gmapping_node" output="log">
-        <param name="base_frame" value="base_link" />
-        <param name="odom_frame" value="odom" />
-        <param name="delta" value="0.01" />
-        <param name="xmin" value="-5" />
-        <param name="ymin" value="-5" />
-        <param name="xmax" value="5" />
-        <param name="ymax" value="5" />
-        <param name="maxUrange" value="5" />
-        <param name="map_update_interval" value="1" />
-        <param name="linearUpdate" value="0.05" />
-        <param name="angularUpdate" value="0.05" />
-        <param name="temporalUpdate" value="0.1" />
-        <param name="particles" value="100" />
+        <param name="base_frame" value="base_link"/>
+        <param name="odom_frame" value="odom"/>
+        <param name="delta" value="0.01"/>
+        <param name="xmin" value="-5"/>
+        <param name="ymin" value="-5"/>
+        <param name="xmax" value="5"/>
+        <param name="ymax" value="5"/>
+        <param name="maxUrange" value="5"/>
+        <param name="map_update_interval" value="1"/>
+        <param name="linearUpdate" value="0.05"/>
+        <param name="angularUpdate" value="0.05"/>
+        <param name="temporalUpdate" value="0.1"/>
+        <param name="particles" value="100"/>
     </node>
 
-<!--    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">-->
-<!--        <param name="tile_width" value="640"/>-->
-<!--        <param name="tile_height" value="480"/>-->
-<!--        <param name="parent_frame" value="/map"/>-->
-<!--        <param name="child_frame" value="/base_link"/>-->
-<!--        <param name="draw_robot" value="true"/>-->
-<!--        <param name="publish_full_map" value="false"/>-->
-<!--        <param name="publish_map_tile" value="true"/>-->
-<!--    </node>-->
+    <!--    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">-->
+    <!--        <param name="tile_width" value="640"/>-->
+    <!--        <param name="tile_height" value="480"/>-->
+    <!--        <param name="parent_frame" value="/map"/>-->
+    <!--        <param name="child_frame" value="/base_link"/>-->
+    <!--        <param name="draw_robot" value="true"/>-->
+    <!--        <param name="publish_full_map" value="false"/>-->
+    <!--        <param name="publish_map_tile" value="true"/>-->
+    <!--    </node>-->
 
     <node pkg="rosgolf_web_interface" type="robot_pose_publisher" name="rosgolf_pose_publisher">
         <param name="is_stamped" value="true"/>
@@ -41,7 +55,7 @@
     <node pkg="rosgolf_web_interface" type="node_server.sh" name="node_server" output="screen"
           args=" --lin $(arg linear_scale) --ang $(arg angular_scale)"/>
 
-    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" >
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
         <arg name="port" value="9090"/>
     </include>
 
@@ -51,9 +65,9 @@
     <node pkg="exploration_server" type="exploration_server_node" name="exploration_server_node" output="screen">
         <param name="frequency" type="double" value="1.0"/>
         <param name="goal_aliasing" type="double" value="0.2"/>
-        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosgolf_web_interface)/params/exploration.yaml" command="load" />
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosgolf_web_interface)/params/exploration.yaml"
+                  command="load"/>
     </node>
-
 
 
 </launch>
