@@ -39,15 +39,15 @@
         <param name="particles" value="100"/>
     </node>
 
-    <!--    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">-->
-    <!--        <param name="tile_width" value="640"/>-->
-    <!--        <param name="tile_height" value="480"/>-->
-    <!--        <param name="parent_frame" value="/map"/>-->
-    <!--        <param name="child_frame" value="/base_link"/>-->
-    <!--        <param name="draw_robot" value="true"/>-->
-    <!--        <param name="publish_full_map" value="false"/>-->
-    <!--        <param name="publish_map_tile" value="true"/>-->
-    <!--    </node>-->
+        <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">
+            <param name="tile_width" value="640"/>
+            <param name="tile_height" value="480"/>
+            <param name="parent_frame" value="/map"/>
+            <param name="child_frame" value="/base_link"/>
+            <param name="draw_robot" value="true"/>
+            <param name="publish_full_map" value="false"/>
+            <param name="publish_map_tile" value="true"/>
+        </node>
 
     <node pkg="rosgolf_web_interface" type="robot_pose_publisher" name="rosgolf_pose_publisher">
         <param name="is_stamped" value="true"/>
