@@ -121,9 +121,10 @@ include_directories(
 )
 
 add_executable(robot_pose_publisher src/robot_pose_publisher.cpp)
-add_executable(robot_pose_publisher src/map_to_img.cpp)
 add_dependencies(robot_pose_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(robot_pose_publisher ${catkin_LIBRARIES})
+
+add_executable(map_to_img_node src/map_to_img.cpp)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
