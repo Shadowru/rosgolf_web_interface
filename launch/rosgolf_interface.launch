@@ -13,7 +13,7 @@
         <!-- <remap from="accel/filtered" to=""/> -->
     </node>
 
-<!--    <include file="$(find ros_odrive)/launch/move_base.launch"/>-->
+    <include file="$(find rosgolf_web_interface)/launch/move_base.launch"/>
 
     <node name="hoverboard_driver" pkg="hoverboard_driver" type="node" output="screen">
         <param name="uart" value="/dev/ttyTHS1"/>
