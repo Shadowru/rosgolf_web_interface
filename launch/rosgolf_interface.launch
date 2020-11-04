@@ -6,12 +6,12 @@
 
     <include file="$(find rosgolf_web_interface)/launch/urdf.launch"/>
 
-<!--    <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">-->
-<!--        <rosparam command="load" file="$(find rosgolf_web_interface)/params/ekf_params.yaml"/>-->
-<!--        &lt;!&ndash;  Placeholder for output topic remapping &ndash;&gt;-->
-<!--        <remap from="odometry/filtered" to="odom"/>-->
-<!--        &lt;!&ndash; <remap from="accel/filtered" to=""/> &ndash;&gt;-->
-<!--    </node>-->
+    <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">
+        <rosparam command="load" file="$(find rosgolf_web_interface)/params/ekf_params.yaml"/>
+        <!--  Placeholder for output topic remapping -->
+        <remap from="odometry/filtered" to="odom"/>
+        <!-- <remap from="accel/filtered" to=""/> -->
+    </node>
 
 <!--    <include file="$(find ros_odrive)/launch/move_base.launch"/>-->
 

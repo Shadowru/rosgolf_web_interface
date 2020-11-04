@@ -1,3 +1,7 @@
 roslaunch rosgolf_web_interface rosgolf_interface.launch
 
 rosservice call /stop_motor
+
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py /cmd_vel:=/hoverboard_driver/cmd_vel
+
+rosrun teleop_twist_joy teleop_node /cmd_vel:=/hoverboard_driver/cmd_vel
