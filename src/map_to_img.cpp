@@ -1,7 +1,3 @@
-#include "ros/ros.h"
-#include <std_msgs/Int16.h>
-#include <tf/transform_listener.h>
-
 #include "rosgolf_web_interface/map_to_img.h"
 
 using namespace std;

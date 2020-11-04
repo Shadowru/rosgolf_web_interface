@@ -9,8 +9,9 @@ project(rosgolf_web_interface)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  tf
   std_msgs
+  image_transport
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
