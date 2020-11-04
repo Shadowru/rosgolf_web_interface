@@ -18,6 +18,7 @@
     <node name="hoverboard_driver" pkg="hoverboard_driver" type="node" output="screen">
         <param name="uart" value="/dev/ttyTHS1"/>
         <param name="baudrate" value="115200"/>
+        <remap from="hoverboard_driver/cmd_vel" to="cmd_vel"/>
     </node>
 
     <include file="$(find rosgolf_web_interface)/launch/rplidar.launch"/>
