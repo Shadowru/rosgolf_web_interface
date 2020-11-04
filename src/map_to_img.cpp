@@ -49,7 +49,7 @@ int main(int argc, char **argv)
       listener.lookupTransform(parent_frame, child_frame, ros::Time(0), transform);
       robot_rot_matrix = new tf::Matrix3x3(transform.getRotation());
       robot_rot_matrix->getEulerYPR(yaw, pitch, roll);
-      map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY(), yaw);
+      //map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY(), yaw);
     }
     catch (tf::TransformException ex)
     {
