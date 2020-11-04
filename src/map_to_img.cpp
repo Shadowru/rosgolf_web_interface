@@ -2,6 +2,8 @@
 #include <std_msgs/Int16.h>
 #include <tf/transform_listener.h>
 
+#include "rosgolf_web_interface/map_to_img.h"
+
 using namespace std;
 
 int32_t tile_width;
@@ -33,7 +35,7 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(50);
   ROS_INFO("Init MapAsImageProvider object");
-  map_image_provider = new MapAsImageProvider(n, tile_width, tile_height, draw_robot, publish_full_map, publish_map_tile);
+  //map_image_provider = new MapAsImageProvider(n, tile_width, tile_height, draw_robot, publish_full_map, publish_map_tile);
   ros::Subscriber map_zoom_sub = n.subscribe("/map_zoom", 1, map_zoom_callback);
   tf::TransformListener listener;
   tfScalar yaw, pitch, roll;
