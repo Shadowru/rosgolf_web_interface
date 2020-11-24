@@ -1,7 +1,11 @@
-#include "rosgolf_web_interface/map_to_img.h"
+#include "ros/ros.h"
+#include <std_msgs/Int16.h>
+#include <ros_odrive/MapAsImageProvider.h>
+#include <tf/transform_listener.h>
 
 using namespace std;
 
+MapAsImageProvider *map_image_provider;
 int32_t tile_width;
 int32_t tile_height;
 std::string parent_frame;
@@ -12,7 +16,7 @@ bool publish_map_tile;
 
 void map_zoom_callback(const std_msgs::Int16 &scale)
 {
-  //map_image_provider->setScale((float)scale.data / 2500);
+  map_image_provider->setScale((float)scale.data / 2500);
 }
 
 int main(int argc, char **argv)
@@ -31,7 +35,7 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(50);
   ROS_INFO("Init MapAsImageProvider object");
-  //map_image_provider = new MapAsImageProvider(n, tile_width, tile_height, draw_robot, publish_full_map, publish_map_tile);
+  map_image_provider = new MapAsImageProvider(n, tile_width, tile_height, draw_robot, publish_full_map, publish_map_tile);
   ros::Subscriber map_zoom_sub = n.subscribe("/map_zoom", 1, map_zoom_callback);
   tf::TransformListener listener;
   tfScalar yaw, pitch, roll;
@@ -45,7 +49,7 @@ int main(int argc, char **argv)
       listener.lookupTransform(parent_frame, child_frame, ros::Time(0), transform);
       robot_rot_matrix = new tf::Matrix3x3(transform.getRotation());
       robot_rot_matrix->getEulerYPR(yaw, pitch, roll);
-      //map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY(), yaw);
+      map_image_provider->updateRobotPosition(transform.getOrigin().getX(), transform.getOrigin().getY(), yaw);
     }
     catch (tf::TransformException ex)
     {
@@ -56,12 +60,12 @@ int main(int argc, char **argv)
     loop_rate.sleep();
     if (publish_full_map)
     {
-      //map_image_provider->publishFullMap();
+      map_image_provider->publishFullMap();
     }
 
     if (publish_map_tile)
     {
-      //map_image_provider->publishMapTile();
+      map_image_provider->publishMapTile();
     }
   }
   return 0;
