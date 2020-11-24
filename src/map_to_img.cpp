@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include <std_msgs/Int16.h>
-#include <ros_odrive/MapAsImageProvider.h>
+#include <rosgolf_web_interface/MapAsImageProvider.h>
 #include <tf/transform_listener.h>
 
 using namespace std;
