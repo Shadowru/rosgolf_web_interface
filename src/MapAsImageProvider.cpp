@@ -1,4 +1,4 @@
-#include "ros_odrive/MapAsImageProvider.h"
+#include "rosgolf_web_interface/MapAsImageProvider.h"
 
 MapAsImageProvider::MapAsImageProvider(ros::NodeHandle nh, uint16_t tile_width, uint16_t tile_height, bool robot_indicator, bool full_map, bool map_tile)
 {
