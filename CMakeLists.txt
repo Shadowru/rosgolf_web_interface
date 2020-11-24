@@ -10,8 +10,9 @@ project(rosgolf_web_interface)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  image_transport
   tf
+  cv_bridge
+  image_transport
 )
 
 ## System dependencies are found with CMake's conventions
@@ -125,9 +126,16 @@ add_executable(robot_pose_publisher src/robot_pose_publisher.cpp)
 add_dependencies(robot_pose_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(robot_pose_publisher ${catkin_LIBRARIES})
 
-add_executable(map_to_img_node src/map_to_img.cpp)
+add_executable(map_to_img_node src/map_to_img.cpp src/MapAsImageProvider.cpp)
 add_dependencies(map_to_img_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(map_to_img_node ${catkin_LIBRARIES})
+target_link_libraries(map_to_img_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
+
+#add_executable(map_to_img_node src/map_to_img.cpp)
+#add_dependencies(map_to_img_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#target_link_libraries(map_to_img_node ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
