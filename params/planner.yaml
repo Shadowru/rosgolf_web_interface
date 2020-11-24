@@ -144,7 +144,7 @@ TebLocalPlannerROS:
   obstacle_poses_affected: 30
   costmap_converter_plugin: ""
   costmap_converter_spin_thread: True
-  costmap_converter_rate: 0.5
+  costmap_converter_rate: 5
 
     # Optimization
 
