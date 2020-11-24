@@ -198,7 +198,7 @@ window.onload = function () {
 		setView()
 	};
 
-	document.getElementById('map-video').src = "http://" + robot_host + ":8082//image_raw?topic=/map_image/tile&type=mjpeg&quality=100";
+	document.getElementById('map-video').src = "http://" + robot_host + ":8082/stream?topic=/map_image/tile&type=mjpeg&quality=100";
 
 	mapZoomSlider = document.getElementById("map-zoom");
 	mapZoomSlider.oninput = function () {
