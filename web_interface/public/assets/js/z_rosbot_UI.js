@@ -3,8 +3,8 @@ var mapZoomSlider;
 var exploration_status = "Waiting for trigger";
 var previous_status;
 var exploration_status_background = "#ffffff";
-var max_voltage = 16.4;
-var min_voltage = 13.0;
+var max_voltage = 40.0;
+var min_voltage = 30.0;
 var explorationGoal;
 var exploreClient;
 var result_subscriber;
@@ -74,7 +74,7 @@ window.onload = function () {
 		}
 	});
 
-	const robot_host = location.hostname;
+	const robot_host = '192.168.1.80';//location.hostname;
 
 	ros = new ROSLIB.Ros({
 		url: "ws://" + robot_host + "" + ":9090"
@@ -126,7 +126,7 @@ window.onload = function () {
 
 	pose_subscriber = new ROSLIB.Topic({
 		ros: ros,
-		name: '/rosbot_on_map_pose',
+		name: '/rosgolf_robot_on_map_pose',
 		messageType: 'geometry_msgs/PoseStamped'
 	});
 
@@ -142,10 +142,16 @@ window.onload = function () {
 		messageType: 'sensor_msgs/Range'
 	});
 
+	// battery_subscriber = new ROSLIB.Topic({
+	// 	ros: ros,
+	// 	name: '/diagnostics',
+	// 	messageType: 'diagnostic_msgs/DiagnosticArray'
+	// });
+
 	battery_subscriber = new ROSLIB.Topic({
 		ros: ros,
-		name: '/diagnostics',
-		messageType: 'diagnostic_msgs/DiagnosticArray'
+		name: '/hoverboard_driver/hoverboard_msg',
+		messageType: 'hoverboard_driver/hoverboard_msg'
 	});
 
 	wifiSubscriber = new ROSLIB.Topic({
@@ -256,14 +262,34 @@ window.onload = function () {
 
 	batteryText = document.getElementById("batery-percent");
 	axisText = document.getElementById("axis-status");
-	battery_subscriber.subscribe(function (battery) {
-		const battery_voltage = parseFloat(battery.status[0].values[0].value);
+
+	battery_subscriber.subscribe(function (hoverboard) {
+
+		//console.log(hoverboard);
+		/*
+		batVoltage: 3882
+boardTemp: 395
+cmd1: 0
+cmd2: 0
+cmdLed: 0
+errorL: 0
+errorR: 0
+pulseCountL: 513
+pulseCountR: -557
+speedL_meas: 0
+speedR_meas: 0
+		 */
+
+		const battery_voltage = parseFloat(hoverboard.batVoltage) / 100;
 		setBatteryPercentage(100 * (battery_voltage - min_voltage) / (max_voltage - min_voltage), battery_voltage);
-		const A1_I = parseFloat(battery.status[0].values[1].value);
-		const A1_temp = parseFloat(battery.status[0].values[3].value);
-		const A2_I = parseFloat(battery.status[0].values[2].value);
-		const A2_temp = parseFloat(battery.status[0].values[4].value);
-		setAxisStatus(A1_I, A1_temp, A2_I, A2_temp);
+		const temperature = parseFloat(hoverboard.boardTemp) / 10;
+		const pulse_L = parseFloat(hoverboard.pulseCountL);
+		const pulse_R = parseFloat(hoverboard.pulseCountR);
+		setBoardStatus(
+			temperature,
+			pulse_L,
+			pulse_R
+		);
 		lastMsgDate = new Date();
 		lastMsgMs = lastMsgDate.getTime();
 	});
@@ -422,8 +448,8 @@ function createJoystick(x, y, w, h) {
 		if (direction > 180) {
 			direction = -(450 - nipple.angle.degree);
 		}
-		var lin = Math.cos(direction / 57.29) * nipple.distance * 0.0025;
-		var ang = Math.sin(direction / 57.29) * nipple.distance * 0.0025;
+		var lin = Math.cos(direction / 57.29) * nipple.distance * 0.01;
+		var ang = Math.sin(direction / 57.29) * nipple.distance * 0.02;
 		moveAction(lin, ang);
 	});
 	manager.on('end', function () {
@@ -451,8 +477,10 @@ function setView() {
 	initTeleopKeyboard();
 }
 
-function setAxisStatus(A1_I, A1_temp, A2_I, A2_temp){
-	axisText.innerHTML = "<strong> Axis current: " + A1_I.toFixed(2) + "/" + -1.0 * A2_I.toFixed(2) +" Axis temp : " + A1_temp.toFixed(2) + "/" + A2_temp.toFixed(2) + "</strong>";
+function setBoardStatus(temperature, pulse_L, pulse_R){
+	axisText.innerHTML = "<strong>"
+		+ " Board temp : " + temperature.toFixed(2)
+		+ "</strong>";
 }
 
 function setBatteryPercentage(percentage, voltage) {
