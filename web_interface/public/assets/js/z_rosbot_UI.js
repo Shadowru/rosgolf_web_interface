@@ -74,7 +74,7 @@ window.onload = function () {
 		}
 	});
 
-	const robot_host = '192.168.1.80';//location.hostname;
+	const robot_host = location.hostname;
 
 	ros = new ROSLIB.Ros({
 		url: "ws://" + robot_host + "" + ":9090"
