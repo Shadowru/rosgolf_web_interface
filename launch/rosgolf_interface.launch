@@ -56,6 +56,11 @@
         <param name="publish_map_tile" value="true"/>
     </node>
 
+    <node pkg="web_video_server" type="web_video_server" name="webvideo4">
+        <param name="address" value="::" />
+        <param name="port" value="8082" />
+    </node>
+
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
         <arg name="port" value="9090"/>
     </include>
