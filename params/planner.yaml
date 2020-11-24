@@ -122,15 +122,15 @@ TebLocalPlannerROS:
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
     type: "line"
     radius: 0.16 # for type "circular"
-    line_start: [-0.1, 0.0] # for type "line"
-    line_end: [0.40, 0.0] # for type "line"
+    line_start: [0.4, 0.0] # for type "line"
+    line_end: [-0.1, 0.0] # for type "line"
     front_offset: 0.1 # for type "two_circles"
     front_radius: 0.1 # for type "two_circles"
     rear_offset: 0.1 # for type "two_circles"
     rear_radius: 0.1 # for type "two_circles"
     vertices: [ [[-0.156,-0.31], [0.156, -0.31], [0.558, -0.24], [0.558, 0.24], [0.156, 0.31], [-0.156,0.31]] ] # for type "polygon"
 
-      # GoalTolerance
+  # GoalTolerance
 
   xy_goal_tolerance: 0.2
   yaw_goal_tolerance: 0.7
@@ -138,7 +138,7 @@ TebLocalPlannerROS:
 
     # Obstacles
 
-  min_obstacle_dist: 0.1
+  min_obstacle_dist: 0.22
   include_costmap_obstacles: True
   costmap_obstacles_behind_robot_dist: 20.0
   obstacle_poses_affected: 30
