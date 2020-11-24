@@ -56,24 +56,33 @@
         <param name="publish_map_tile" value="true"/>
     </node>
 
+    <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+        <param name="video_device" value="/dev/video0" />
+        <param name="image_width" value="352" />
+        <param name="image_height" value="288" />
+        <param name="pixel_format" value="mjpeg" />
+        <param name="camera_frame_id" value="usb_cam" />
+        <param name="io_method" value="mmap"/>
+    </node>
+
     <node pkg="web_video_server" type="web_video_server" name="webvideo4">
-        <param name="address" value="::" />
-        <param name="port" value="8082" />
+        <param name="address" value="::"/>
+        <param name="port" value="8082"/>
     </node>
 
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
         <arg name="port" value="9090"/>
     </include>
 
-        <node pkg="exploration_server" type="plugin_client" name="plugin_client" output="screen">
-        </node>
+    <node pkg="exploration_server" type="plugin_client" name="plugin_client" output="screen">
+    </node>
 
-        <node pkg="exploration_server" type="exploration_server_node" name="exploration_server_node" output="screen">
-            <param name="frequency" type="double" value="1.0"/>
-            <param name="goal_aliasing" type="double" value="0.2"/>
-            <rosparam ns="explore_costmap" subst_value="true" file="$(find rosgolf_web_interface)/params/exploration.yaml"
-                      command="load"/>
-        </node>
+    <node pkg="exploration_server" type="exploration_server_node" name="exploration_server_node" output="screen">
+        <param name="frequency" type="double" value="1.0"/>
+        <param name="goal_aliasing" type="double" value="0.2"/>
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosgolf_web_interface)/params/exploration.yaml"
+                  command="load"/>
+    </node>
 
 
 </launch>
