@@ -100,7 +100,7 @@ DWAPlannerROS:
 TebLocalPlannerROS:
 
   odom_topic: odom
-  map_frame: /odom
+  #map_frame: /odom
 
     # Trajectory
 
@@ -113,11 +113,11 @@ TebLocalPlannerROS:
 
     # Robot
 
-  max_vel_x: 0.3
-  max_vel_x_backwards: 0.3
-  max_vel_theta: 0.3
-  acc_lim_x: 0.8
-  acc_lim_theta: 0.8
+  max_vel_x: 0.2
+  max_vel_x_backwards: 0.2
+  max_vel_theta: 0.2
+  acc_lim_x: 0.5
+  acc_lim_theta: 0.5
   min_turning_radius: 0.0
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
     type: "line"
@@ -128,7 +128,7 @@ TebLocalPlannerROS:
     front_radius: 0.1 # for type "two_circles"
     rear_offset: 0.1 # for type "two_circles"
     rear_radius: 0.1 # for type "two_circles"
-    vertices: [ [[-0.156,-0.31], [0.156, -0.31], [0.558, -0.24], [0.558, 0.24], [0.156, 0.31], [-0.156,0.31]] ] # for type "polygon"
+    vertices: [ [[-0.1,-0.16], [0.1, 0.16], [0.4, 0.16], [0.4, -0.16]] ] # for type "polygon"
 
   # GoalTolerance
 
