@@ -6,38 +6,38 @@
 
     <include file="$(find rosgolf_web_interface)/launch/urdf.launch"/>
 
-    <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">
-        <rosparam command="load" file="$(find rosgolf_web_interface)/params/ekf_params.yaml"/>
-        <!--  Placeholder for output topic remapping -->
-        <remap from="odometry/filtered" to="odom"/>
-        <!-- <remap from="accel/filtered" to=""/> -->
-    </node>
-
-    <include file="$(find rosgolf_web_interface)/launch/move_base.launch"/>
-
     <node name="hoverboard_driver" pkg="hoverboard_driver" type="node" output="screen">
         <param name="uart" value="/dev/ttyTHS1"/>
         <param name="baudrate" value="115200"/>
         <remap from="hoverboard_driver/cmd_vel" to="cmd_vel"/>
     </node>
 
-    <include file="$(find rosgolf_web_interface)/launch/rplidar.launch"/>
+<!--    <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">-->
+<!--        <rosparam command="load" file="$(find rosgolf_web_interface)/params/ekf_params.yaml"/>-->
+<!--        &lt;!&ndash;  Placeholder for output topic remapping &ndash;&gt;-->
+<!--        <remap from="odometry/filtered" to="odom"/>-->
+<!--        &lt;!&ndash; <remap from="accel/filtered" to=""/> &ndash;&gt;-->
+<!--    </node>-->
 
-    <node pkg="gmapping" type="slam_gmapping" name="gmapping_node" output="log">
-        <param name="base_frame" value="base_link"/>
-        <param name="odom_frame" value="odom"/>
-        <param name="delta" value="0.01"/>
-        <param name="xmin" value="-5"/>
-        <param name="ymin" value="-5"/>
-        <param name="xmax" value="5"/>
-        <param name="ymax" value="5"/>
-        <param name="maxUrange" value="5"/>
-        <param name="map_update_interval" value="1"/>
-        <param name="linearUpdate" value="0.05"/>
-        <param name="angularUpdate" value="0.05"/>
-        <param name="temporalUpdate" value="0.1"/>
-        <param name="particles" value="100"/>
-    </node>
+<!--    <include file="$(find rosgolf_web_interface)/launch/move_base.launch"/>-->
+
+<!--    <include file="$(find rosgolf_web_interface)/launch/rplidar.launch"/>-->
+
+<!--    <node pkg="gmapping" type="slam_gmapping" name="gmapping_node" output="log">-->
+<!--        <param name="base_frame" value="base_link"/>-->
+<!--        <param name="odom_frame" value="odom"/>-->
+<!--        <param name="delta" value="0.01"/>-->
+<!--        <param name="xmin" value="-5"/>-->
+<!--        <param name="ymin" value="-5"/>-->
+<!--        <param name="xmax" value="5"/>-->
+<!--        <param name="ymax" value="5"/>-->
+<!--        <param name="maxUrange" value="5"/>-->
+<!--        <param name="map_update_interval" value="1"/>-->
+<!--        <param name="linearUpdate" value="0.05"/>-->
+<!--        <param name="angularUpdate" value="0.05"/>-->
+<!--        <param name="temporalUpdate" value="0.1"/>-->
+<!--        <param name="particles" value="100"/>-->
+<!--    </node>-->
 
     <node pkg="rosgolf_web_interface" type="robot_pose_publisher" name="rosgolf_pose_publisher">
         <param name="is_stamped" value="true"/>
@@ -46,41 +46,41 @@
     <node pkg="rosgolf_web_interface" type="node_server.sh" name="node_server" output="screen"
           args=" --lin $(arg linear_scale) --ang $(arg angular_scale)"/>
 
-    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">
-        <param name="tile_width" value="640"/>
-        <param name="tile_height" value="480"/>
-        <param name="parent_frame" value="/map"/>
-        <param name="child_frame" value="/base_link"/>
-        <param name="draw_robot" value="true"/>
-        <param name="publish_full_map" value="false"/>
-        <param name="publish_map_tile" value="true"/>
-    </node>
+<!--    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">-->
+<!--        <param name="tile_width" value="640"/>-->
+<!--        <param name="tile_height" value="480"/>-->
+<!--        <param name="parent_frame" value="/map"/>-->
+<!--        <param name="child_frame" value="/base_link"/>-->
+<!--        <param name="draw_robot" value="true"/>-->
+<!--        <param name="publish_full_map" value="false"/>-->
+<!--        <param name="publish_map_tile" value="true"/>-->
+<!--    </node>-->
 
-    <node pkg="libuvc_camera" type="camera_node" name="mycam">
-        <!-- Parameters used to find the camera -->
-        <param name="vendor" value="0x046d"/>
-        <param name="product" value="0x0826"/>
-        <!-- If the above parameters aren't unique, choose the first match: -->
-        <param name="index" value="0"/>
+<!--    <node pkg="libuvc_camera" type="camera_node" name="mycam">-->
+<!--        &lt;!&ndash; Parameters used to find the camera &ndash;&gt;-->
+<!--        <param name="vendor" value="0x046d"/>-->
+<!--        <param name="product" value="0x0826"/>-->
+<!--        &lt;!&ndash; If the above parameters aren't unique, choose the first match: &ndash;&gt;-->
+<!--        <param name="index" value="0"/>-->
 
-        <!-- Image size and type -->
-        <param name="width" value="640"/>
-        <param name="height" value="480"/>
-        <!-- choose whichever uncompressed format the camera supports: -->
-        <param name="video_mode" value="mjpeg "/> <!-- or yuyv/nv12/mjpeg -->
-        <param name="frame_rate" value="15"/>
+<!--        &lt;!&ndash; Image size and type &ndash;&gt;-->
+<!--        <param name="width" value="640"/>-->
+<!--        <param name="height" value="480"/>-->
+<!--        &lt;!&ndash; choose whichever uncompressed format the camera supports: &ndash;&gt;-->
+<!--        <param name="video_mode" value="mjpeg "/> &lt;!&ndash; or yuyv/nv12/mjpeg &ndash;&gt;-->
+<!--        <param name="frame_rate" value="15"/>-->
 
-        <param name="timestamp_method" value="start"/> <!-- start of frame -->
-<!--        <param name="camera_info_url" value="file:///tmp/cam.yaml"/>-->
+<!--        <param name="timestamp_method" value="start"/> &lt;!&ndash; start of frame &ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="camera_info_url" value="file:///tmp/cam.yaml"/>&ndash;&gt;-->
 
-        <param name="auto_exposure" value="3"/> <!-- use aperture_priority auto exposure -->
-        <param name="auto_white_balance" value="false"/>
-    </node>
+<!--        <param name="auto_exposure" value="3"/> &lt;!&ndash; use aperture_priority auto exposure &ndash;&gt;-->
+<!--        <param name="auto_white_balance" value="false"/>-->
+<!--    </node>-->
 
-    <node pkg="web_video_server" type="web_video_server" name="webvideo4">
-        <param name="address" value="::"/>
-        <param name="port" value="8082"/>
-    </node>
+<!--    <node pkg="web_video_server" type="web_video_server" name="webvideo4">-->
+<!--        <param name="address" value="::"/>-->
+<!--        <param name="port" value="8082"/>-->
+<!--    </node>-->
 
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
         <arg name="port" value="9090"/>
