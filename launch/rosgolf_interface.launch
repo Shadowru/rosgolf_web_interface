@@ -46,15 +46,15 @@
     <node pkg="rosgolf_web_interface" type="node_server.sh" name="node_server" output="screen"
           args=" --lin $(arg linear_scale) --ang $(arg angular_scale)"/>
 
-<!--    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">-->
-<!--        <param name="tile_width" value="640"/>-->
-<!--        <param name="tile_height" value="480"/>-->
-<!--        <param name="parent_frame" value="/map"/>-->
-<!--        <param name="child_frame" value="/base_link"/>-->
-<!--        <param name="draw_robot" value="true"/>-->
-<!--        <param name="publish_full_map" value="false"/>-->
-<!--        <param name="publish_map_tile" value="true"/>-->
-<!--    </node>-->
+    <node pkg="rosgolf_web_interface" type="map_to_img_node" name="map_to_img" output="screen">
+        <param name="tile_width" value="640"/>
+        <param name="tile_height" value="480"/>
+        <param name="parent_frame" value="/map"/>
+        <param name="child_frame" value="/base_link"/>
+        <param name="draw_robot" value="true"/>
+        <param name="publish_full_map" value="false"/>
+        <param name="publish_map_tile" value="true"/>
+    </node>
 
     <node pkg="libuvc_camera" type="camera_node" name="mycam">
         <!-- Parameters used to find the camera -->
