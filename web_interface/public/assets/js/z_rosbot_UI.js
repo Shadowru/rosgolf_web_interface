@@ -511,7 +511,7 @@ function moveAction(linear, angular) {
 	twist.angular.y = 0;
 	twist.angular.z = 0;
 	if (linear !== undefined && angular !== undefined) {
-		twist.linear.x = linear;
+		twist.linear.x = -linear;
 		twist.angular.z = angular;
 	}
 	cmdVel.publish(twist);
